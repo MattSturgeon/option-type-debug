@@ -5,7 +5,9 @@
 rec {
   basic-type = lib.types.str;
   basic-type' = basic-type // {
-    merge = builtins.trace "basic-type'.merge" basic-type.merge;
+    # Append ' to all values before merging
+    merge =
+      loc: defs: basic-type.merge loc (builtins.map (def: def // { value = def.value + "'"; }) defs);
   };
 
   comp-type = lib.types.attrsOf basic-type;
