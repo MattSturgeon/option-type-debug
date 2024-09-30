@@ -10,5 +10,9 @@
       legacyPackages = lib.mapAttrs (
         system: pkgs: import ./. { inherit pkgs lib; }
       ) nixpkgs.legacyPackages;
+
+      result = import ./. { inherit lib; };
+
+      inherit lib;
     };
 }
